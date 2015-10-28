@@ -1,0 +1,89 @@
+main {
+    display: flex;
+    flex-wrap: wrap;
+}
+.calculator__container {
+    flex: 1 1 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: flex-start;
+    
+}
+.calculator__container > section {
+    flex: 1 0 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+.history__container {
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+    overflow: auto;
+}
+.history__container > h1 {
+    text-align: center;
+    margin-top: 0;
+}
+.history__container__items {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 1em;
+}
+
+.calculator__container > .calculator__numbers {
+    flex-flow: row-reverse wrap;
+}
+.calculator__container > h1 {
+    flex: 1 1 100%;
+    margin-top: 0;
+    text-align: center;
+}
+.calculator__container > input {
+    padding: 1em;
+    flex: 1 1 100%;
+    text-align: center;
+}
+.calculator__container > .calculator__numbers {
+    flex: 1 0 65%;
+}
+.calculator__container > .calculator__controls {
+    flex: 1 1 25%;
+    flex-direction: column;
+} 
+.calculator__container > .calculator__numbers > .button {
+    
+    margin: .5em;
+    flex: 1 0 25%;
+    padding-bottom: 3em;
+    padding-top: 1em;
+    font-size: 150%;
+    line-height: 200%;
+}
+.calculator__container > .calculator__controls > .button {
+    margin: .5em;
+    margin-left: 2em;
+    margin-right: 2em;
+    flex: 1 0 auto;
+    padding-bottom: 2em;
+    padding-top: 0em;
+    font-size: 200%;
+    line-height: 200%;
+}
+@media (max-width: 670px) {
+    .history__container {
+        flex: 1 1 100%;
+    }
+    .calculator__container > .calculator__numbers > .button {
+        margin: .25em;
+        flex: 1 0 25%;
+        font-size: 100%;
+        line-height: 100%;
+        padding: 0em;
+    }
+    .calculator__container > .calculator__controls > .button {
+        margin: .25em;
+        flex: 1 0 20%;
+    }
+}
