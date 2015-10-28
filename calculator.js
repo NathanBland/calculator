@@ -24,8 +24,24 @@ function genereateHistory(result, expression){
     var content = document.createElement('p')
     content.innerHTML = expression+'='+result
     
+    var links = document.createElement('div')
+    links.className = 'card-action'
+    
+    var copyQuery = document.createElement('button')
+    var copyResult = document.createElement('button')
+    
+    copyQuery.innerHTML = '<i class="material-icons">library_add</i> Copy Calculation'
+    copyResult.innerHTML = '<i class="material-icons">library_add</i> Copy Result'
+    
+    copyQuery.className = 'button btn waves-effect waves-light'
+    copyResult.className = 'button btn waves-effect waves-light'
+    
+    links.appendChild(copyQuery)
+    links.appendChild(copyResult)
+    
     cardContent.appendChild(title)
     cardContent.appendChild(content)
+    cardContent.appendChild(links)
     card.appendChild(cardContent)
     history.appendChild(card)
 }
