@@ -1,3 +1,4 @@
+
 /**
  * Main App js
  * Author: Nathan Bland
@@ -8,13 +9,14 @@
 
 //Generate history from calculation
 
-var previous = ''
-
+var previous = []
+var position = previous.length-1
+var clipboard = new Clipboard('.btn');
 function genereateHistory(result, expression){
     var history = document.querySelector('.history__container__items')
     var card = document.createElement('div')
     var cardContent = document.createElement('div')
-    card.className = 'card'
+    card.className = 'card animated fadeInDown'
     cardContent.className = 'card-content'
     
     var title = document.createElement('span')
@@ -33,6 +35,11 @@ function genereateHistory(result, expression){
     copyQuery.innerHTML = '<i class="material-icons">library_add</i> Copy Calculation'
     copyResult.innerHTML = '<i class="material-icons">library_add</i> Copy Result'
     
+    copyQuery.setAttribute('data-clipboard-text', expression)
+    copyResult.setAttribute('data-clipboard-text', result)
+    copyQuery.setAttribute('data-clipboard-action', 'copy')
+    copyResult.setAttribute('data-clipboard-action', 'copy')
+    
     copyQuery.className = 'button btn waves-effect waves-light'
     copyResult.className = 'button btn waves-effect waves-light'
     
@@ -44,17 +51,43 @@ function genereateHistory(result, expression){
     cardContent.appendChild(links)
     card.appendChild(cardContent)
     history.appendChild(card)
+    
 }
 
 //Get the result of our calculation
 function getResult(query) {
     var init = query.charAt(0)
     if (init === '*' || init === '/' || init === '+' || init === '-') {
-        query = previous + query
+        query = previous[previous.length-1].result + query
     }
     var result = math.eval(query)
-    previous = result
+    previous.push({'result': result, 'query': query})
+    position = previous.length-1
+    var resultInput = document.querySelector('.input__result')
+    resultInput.value = result
+    resultInput.classList.add('pulse')
+    
     genereateHistory(result, query)
+    clipboard.destroy();
+    clipboard = new Clipboard('.btn');
+    clipboard.on('success', function(e) {
+        console.info('Action:', e.action);
+        console.info('Text:', e.text);
+        console.info('Trigger:', e.trigger);
+        e.trigger.classList.add('animated')
+        e.trigger.classList.add('pulse')
+        var check = document.createElement('i')
+        check.className = 'material-icons'
+        check.textContent = 'done'
+        e.trigger.appendChild(check)
+        e.trigger.addEventListener('animationend', function(ev){
+            console.log('fired!')
+            e.trigger.classList.remove('animated')
+            e.trigger.classList.remove('pulse')
+            check.remove()
+        })
+        
+    })
     return result
 }
 
@@ -66,8 +99,6 @@ function createButton(text, parent, input) {
     //button.innerHTML = text
     button.className = 'button btn waves-effect waves-light'
     button.addEventListener('click', function(e){
-        console.log(button)
-        console.log('event:',e)
         var value = button.value
         if (value === '='){
             getResult(input.value)
@@ -106,19 +137,52 @@ function generateInterface() {
     history.appendChild(historyTitle)
     history.appendChild(historyItems)
     
+    var inputContainer = document.createElement('div')
     var input = document.createElement('input')
+    var result = document.createElement('input')
+    
+    inputContainer.className = 'calculator__input__container'
+    
     input.setAttribute('autofocus', 'autofocus')
-    input.setAttribute('placeholder', '2*4')
+    input.setAttribute('autofocus', 'autofocus')
+    
+    result.setAttribute('readonly', 'readonly')
+    result.className = 'input__result animated pulse'
+    result.addEventListener('animationend', function(ev){
+        result.classList.remove('pulse')
+    })
     input.className = 'input-field calculator__input'
     input.addEventListener('keyup', function(e){
         if (e.keyCode === 13) {
             getResult(input.value)
             input.value = ''
+        } else if (e.keyCode === 38) { //up arrow
+            if (position > -1) {
+                console.log('position:', position)
+                input.value = previous[position].query
+                if (position > 0){
+                    position -=1
+                }
+            }
+        } else if (e.keyCode === 40) {//down arrow
+            if (position < previous.length) {
+                console.log('position:', position)
+                position +=1
+                if (!previous[position]){
+                    input.value = ''
+                    position -= 1
+                } else {
+                    input.value = previous[position].query
+                }
+            }
         }
     })
     
     calculator.appendChild(title)
-    calculator.appendChild(input)
+    
+    inputContainer.appendChild(input)
+    inputContainer.appendChild(result)
+    calculator.appendChild(inputContainer)
     
     //create our numbers
     var numbers = document.createElement('section')

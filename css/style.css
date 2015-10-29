@@ -31,7 +31,12 @@ main {
     flex-direction: column-reverse;
     margin: 1em;
 }
-
+.card-action > button {
+    margin-right: 1em;
+}
+.card-action > button > i {
+    margin-left: .5em;
+}
 .calculator__container > .calculator__numbers {
     flex-flow: row-reverse wrap;
 }
@@ -40,10 +45,18 @@ main {
     margin-top: 0;
     text-align: center;
 }
-.calculator__container > input {
-    padding: 1em;
+.calculator__container > .calculator__input__container  {
     flex: 1 1 100%;
+    display: flex;
+}
+.calculator__container > .calculator__input__container > input {
+    padding: 1em;
+    margin-top: 1em;
+    flex: 1 1 75%;
     text-align: center;
+}
+.calculator__container > .calculator__input__container > .input__result {
+    flex: 1 1 25%
 }
 .calculator__container > .calculator__numbers {
     flex: 1 0 65%;
@@ -85,5 +98,9 @@ main {
     .calculator__container > .calculator__controls > .button {
         margin: .25em;
         flex: 1 0 20%;
+        padding-bottom: 0em;
+        padding-top: 0em;
+        font-size: 150%;
+        line-height: 150%;
     }
 }
