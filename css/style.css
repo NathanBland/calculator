@@ -3,7 +3,7 @@ main {
     flex-wrap: wrap;
 }
 .calculator__container {
-    flex: 1 1 50%;
+    flex: 1 1 75%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -16,7 +16,7 @@ main {
     flex-flow: row wrap;
 }
 .history__container {
-    flex: 1 1 50%;
+    flex: 1 1 25%;
     display: flex;
     flex-direction: column;
     max-height: 100vh;
@@ -66,21 +66,20 @@ main {
     flex-direction: column;
 } 
 .calculator__container > .calculator__numbers > .button {
-    
-    margin: .5em;
     flex: 1 0 25%;
-    padding-bottom: 3em;
-    padding-top: 1em;
-    font-size: 150%;
-    line-height: 200%;
+    padding-bottom: 4em;
+    padding-top: 2em;
+    font-size: 200%;
+    line-height: 250%;
+    margin: 0.5em;
 }
 .calculator__container > .calculator__controls > .button {
     margin: .5em;
     margin-left: 2em;
     margin-right: 2em;
     flex: 1 0 auto;
-    padding-bottom: 2em;
-    padding-top: 0em;
+    padding-bottom: 1em;
+    padding-top: 1em;
     font-size: 200%;
     line-height: 200%;
 }

@@ -147,6 +147,7 @@ function generateInterface() {
     input.setAttribute('autofocus', 'autofocus')
     
     result.setAttribute('readonly', 'readonly')
+    result.setAttribute('placeholder', 'result')
     result.className = 'input__result animated pulse'
     result.addEventListener('animationend', function(ev){
         result.classList.remove('pulse')
