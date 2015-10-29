@@ -3,7 +3,7 @@ main {
     flex-wrap: wrap;
 }
 .calculator__container {
-    flex: 1 1 75%;
+    flex: 1 1 50%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
